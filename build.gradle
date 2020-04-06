@@ -30,7 +30,6 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: 'docker'
 
 group = 'mx.mexicocovid19.plataforma.pmc.analizer'
-version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 mainClassName = 'mx.mexicocovid19.plataforma.pmc.analizer.PlataformaAnalizerApp'
@@ -54,6 +53,8 @@ dependencies {
 		'org.springframework.boot:spring-boot-starter-web',
 		'org.springframework.boot:spring-boot-starter-tomcat',
 		'org.springframework.boot:spring-boot-starter-log4j2',
+		'org.springframework.boot:spring-boot-starter-mail',
+		'org.springframework.boot:spring-boot-starter-security',
 	    
 		'io.springfox:springfox-swagger2:2.4.0',
 	    'io.springfox:springfox-swagger-ui:2.4.0',

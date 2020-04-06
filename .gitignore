@@ -1,0 +1,29 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea
+*.iml
+.gradle
+bin
+gradle
+build
+.classpath
+.settings
+.project
+log
+
+out
+
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+

@@ -3,7 +3,6 @@
 *.iml
 .gradle
 bin
-gradle
 build
 .classpath
 .settings
@@ -19,7 +18,6 @@ out
 *.log
 
 # Package Files #
-*.jar
 *.war
 *.nar
 *.ear

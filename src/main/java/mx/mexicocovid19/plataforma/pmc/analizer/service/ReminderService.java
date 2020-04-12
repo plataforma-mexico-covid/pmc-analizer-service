@@ -66,11 +66,11 @@ public class ReminderService {
 		logger.info("***************Validando que no se han enviado mas de 3 correos a la ayuda.");
 		// Si OFERTANTE no mas de 3, Si SOLICITANTE no mas de 5
 		if (OrigenAyuda.OFRECE == notificacion.getAyuda().getOrigenAyuda()
-				&& notificacion.getNotification_counter() < 1) {
+				&& notificacion.getNotification_counter() < 3) {
 			notificacion.setNotification_counter(notificacion.getNotification_counter()+1);
 			return true; 
 		} else if(OrigenAyuda.SOLICITA == notificacion.getAyuda().getOrigenAyuda()
-				&& notificacion.getNotification_counter() < 2) {
+				&& notificacion.getNotification_counter() < 5) {
 			notificacion.setNotification_counter(notificacion.getNotification_counter()+1);
 			return true;
 		} else {

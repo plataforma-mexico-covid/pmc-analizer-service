@@ -14,7 +14,7 @@ public class BitacoraNotificaciones {
  	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
  	@Column(name = "id", updatable = false, nullable = false)
-	private Long id;
+	private Integer id;
  	@OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ayuda_id")
 	private Ayuda ayuda;

@@ -80,7 +80,7 @@ dependencies {
         }
     }
     
-    compileOnly 'org.projectlombok:lombok:1.16.10'
+	compile 'org.projectlombok:lombok:1.16.10'
 	annotationProcessor "org.projectlombok:lombok:1.16.10"
 	
 	testCompile('org.springframework.boot:spring-boot-starter-test')

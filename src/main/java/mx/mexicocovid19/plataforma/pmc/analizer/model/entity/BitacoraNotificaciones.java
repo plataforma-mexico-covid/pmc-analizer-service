@@ -1,13 +1,6 @@
 package mx.mexicocovid19.plataforma.pmc.analizer.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +12,7 @@ import lombok.Setter;
 public class BitacoraNotificaciones {
  
  	@Id
- 	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
  	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
  	@OneToOne(fetch = FetchType.LAZY)

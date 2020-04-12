@@ -81,8 +81,7 @@ dependencies {
     }
     
 	compile 'org.projectlombok:lombok:1.16.10'
-	annotationProcessor "org.projectlombok:lombok:1.16.10"
-	
+
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile 'org.codehaus.groovy:groovy-all:2.4.4'
     testCompile 'org.spockframework:spock-core:1.2-groovy-2.4'

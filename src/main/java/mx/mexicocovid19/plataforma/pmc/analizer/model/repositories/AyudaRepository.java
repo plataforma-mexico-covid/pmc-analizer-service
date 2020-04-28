@@ -32,7 +32,7 @@ public interface AyudaRepository extends JpaRepository<Ayuda, Integer> {
             " FROM Ayuda ayuda" +
             " where " +
             "   ayuda.ciudadano != :ciudadano " +
-            "   and ayuda.status = 'NUEVA' " +
+            "   and ayuda.estatusAyuda = 'NUEVA' " +
             "   and ayuda.origenAyuda = :origenAyuda " +
             "   and ( 6371 * " +
             "      acos ( " +
@@ -50,6 +50,6 @@ public interface AyudaRepository extends JpaRepository<Ayuda, Integer> {
                                                          @Param("origenAyuda") OrigenAyuda origenAyuda,
                                                          @Param("ciudadano") Ciudadano ciudadano );
     
-    @Query("Select ayuda FROM Ayuda ayuda where ayuda.status IN (:status)")
-    List<Ayuda> findAllByEstatus(@Param("status") List<EstatusAyuda> statusList);    
+    @Query("Select ayuda FROM Ayuda ayuda where ayuda.estatusAyuda IN (:status)")
+    List<Ayuda> findAllByEstatus(@Param("status") List<EstatusAyuda> statusList);
 }

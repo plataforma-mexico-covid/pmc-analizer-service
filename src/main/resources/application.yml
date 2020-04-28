@@ -3,7 +3,7 @@ server:
   session-timeout: 60
 
 spring.profiles.active: proddb
-spring.profiles.include: mailoff
+spring.profiles.include: mailon, whatsappon
 
 ---
 spring:
@@ -20,6 +20,15 @@ spring:
         default_schema: ${SECRET_DB_SCHEMA}
         hibernate.show_sql: false
         format_sql: false
+
+plataforma.whatsapp:
+  url: ${WHATSAPP_URL}
+  token: ${WHATSAPP_TOKEN}
+  notificarSolicita: ${WHATSAPP_NOTIFICA_SOLICITA}
+  kilometros: ${WHATSAPP_KILOMETROS}
+  mensaje:
+    ofrece: ${WHATSAPP_MENSAJE_OFRECE}
+    solicita: ${WHATSAPP_MENSAJE_SOLICITA}
 
 ---
 
@@ -39,7 +48,12 @@ spring:
       enabled: true
       path: /h2-console
 
-plataforma.url.confirm.token: http://localhost:8090/confirm
+plataforma.whatsapp:
+  notificarSolicita: true
+  kilometros: 10
+  mensaje:
+    ofrece: Hola %s encontramos que tu ayuda %s puede ser muy util para %s quien solicita %s puedes contactarlo en este numero %s
+    solicita: Hola %s encontramos que tu solicitud %s puede ser atendida por %s quien ofrece %s puedes contactarlo en este numero %s
 
 ---
 spring:

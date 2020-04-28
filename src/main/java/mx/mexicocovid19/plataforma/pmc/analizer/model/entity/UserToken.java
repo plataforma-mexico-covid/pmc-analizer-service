@@ -22,4 +22,6 @@ public class UserToken {
 	private boolean validated;
 	@Column(name = "expiration_date")
 	private Date expirationDate;
+	@Column(name = "type", nullable = false, length = 15)
+	private String type;
 }

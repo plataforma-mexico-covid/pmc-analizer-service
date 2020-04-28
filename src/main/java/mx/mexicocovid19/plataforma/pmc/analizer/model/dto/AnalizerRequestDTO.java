@@ -8,6 +8,14 @@ import lombok.ToString;
 @Setter
 @ToString
 public class AnalizerRequestDTO {
+	
 	String reminderType;	
 	Long ayudaId;
+	
+	public AnalizerRequestDTO(){}
+	public AnalizerRequestDTO(String reminderType, Long ayudaId) {
+		super();
+		this.reminderType = reminderType;
+		this.ayudaId = ayudaId;
+	}	
 }

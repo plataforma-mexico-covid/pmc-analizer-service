@@ -23,7 +23,7 @@ import mx.mexicocovid19.plataforma.pmc.analizer.model.dto.AnalizerResponseDTO;
 import mx.mexicocovid19.plataforma.pmc.analizer.service.AnalizerService;
 
 @Controller
-@RequestMapping(value = ApiResourceConstants.API_PATH_PRIVATE)
+@RequestMapping(value = ApiResourceConstants.API_PATH_PUBLIC)
 @Validated
 public class PmcAnalizerController {
 

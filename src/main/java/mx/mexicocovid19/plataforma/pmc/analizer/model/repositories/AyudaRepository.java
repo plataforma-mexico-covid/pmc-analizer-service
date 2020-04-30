@@ -2,14 +2,10 @@ package mx.mexicocovid19.plataforma.pmc.analizer.model.repositories;
 
 import java.util.List;
 
+import mx.mexicocovid19.plataforma.pmc.analizer.model.entity.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
-import mx.mexicocovid19.plataforma.pmc.analizer.model.entity.Ayuda;
-import mx.mexicocovid19.plataforma.pmc.analizer.model.entity.Ciudadano;
-import mx.mexicocovid19.plataforma.pmc.analizer.model.entity.EstatusAyuda;
-import mx.mexicocovid19.plataforma.pmc.analizer.model.entity.OrigenAyuda;
 
 public interface AyudaRepository extends JpaRepository<Ayuda, Integer> {
     @Query("select ayuda " +
@@ -33,6 +29,7 @@ public interface AyudaRepository extends JpaRepository<Ayuda, Integer> {
             " where " +
             "   ayuda.ciudadano != :ciudadano " +
             "   and ayuda.estatusAyuda = 'NUEVA' " +
+            "   and ayuda.tipoAyuda = :tipoAyuda " +
             "   and ayuda.origenAyuda = :origenAyuda " +
             "   and ( 6371 * " +
             "      acos ( " +
@@ -48,6 +45,7 @@ public interface AyudaRepository extends JpaRepository<Ayuda, Integer> {
                                                          @Param("longitudeRef") double longitudeRef,
                                                          @Param("kilometers") double kilometers,
                                                          @Param("origenAyuda") OrigenAyuda origenAyuda,
+                                                         @Param("tipoAyuda") TipoAyuda tipoAyuda,
                                                          @Param("ciudadano") Ciudadano ciudadano );
     
     @Query("Select ayuda FROM Ayuda ayuda where ayuda.estatusAyuda IN (:status)")

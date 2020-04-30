@@ -43,13 +43,13 @@ public class ReminderServiceTest {
 		cercanos.add(new Ayuda());
 		when(bitacoraRepository.findByAyuda(Mockito.any())).thenReturn(bitacora);
 		when(ayudaRepository.findByAllInsideOfKilometersByOrigenAyuda(Mockito.anyDouble(), Mockito.anyDouble(),
-				Mockito.anyDouble(), Mockito.any(), Mockito.any())).thenReturn(cercanos);
+				Mockito.anyDouble(), Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(cercanos);
 		when(bitacoraRepository.saveAndFlush(Mockito.any())).thenReturn(bitacora);
 		when(ayudaRepository.saveAndFlush(Mockito.any())).thenReturn(ayuda);
 		reminderService.generateReminders(ayuda);
 		Mockito.verify(bitacoraRepository).findByAyuda(Mockito.any());
 		Mockito.verify(ayudaRepository).findByAllInsideOfKilometersByOrigenAyuda(Mockito.anyDouble(), Mockito.anyDouble(),
-				Mockito.anyDouble(), Mockito.any(), Mockito.any());
+				Mockito.anyDouble(), Mockito.any(), Mockito.any(), Mockito.any());
 		Mockito.verify(bitacoraRepository).saveAndFlush(Mockito.any());
 		Mockito.verify(ayudaRepository).saveAndFlush(Mockito.any());
 	}
@@ -61,13 +61,13 @@ public class ReminderServiceTest {
 		cercanos.add(new Ayuda());
 		when(bitacoraRepository.findByAyuda(Mockito.any())).thenReturn(this.bitacora);
 		when(ayudaRepository.findByAllInsideOfKilometersByOrigenAyuda(Mockito.anyDouble(), Mockito.anyDouble(),
-				Mockito.anyDouble(), Mockito.any(), Mockito.any())).thenReturn(cercanos);
+				Mockito.anyDouble(), Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(cercanos);
 		when(bitacoraRepository.saveAndFlush(Mockito.any())).thenReturn(bitacora);
 		when(ayudaRepository.saveAndFlush(Mockito.any())).thenReturn(ayuda);
 		reminderService.generateReminders(ayuda);
 		Mockito.verify(bitacoraRepository).findByAyuda(Mockito.any());
 		Mockito.verify(ayudaRepository).findByAllInsideOfKilometersByOrigenAyuda(Mockito.anyDouble(), Mockito.anyDouble(),
-				Mockito.anyDouble(), Mockito.any(), Mockito.any());
+				Mockito.anyDouble(), Mockito.any(), Mockito.any(), Mockito.any());
 		Mockito.verify(bitacoraRepository).saveAndFlush(Mockito.any());
 		Mockito.verify(ayudaRepository).saveAndFlush(Mockito.any());
 	}
@@ -80,7 +80,7 @@ public class ReminderServiceTest {
 		cercanos.add(new Ayuda());
 		when(bitacoraRepository.findByAyuda(Mockito.any())).thenReturn(bitacora);
 		when(ayudaRepository.findByAllInsideOfKilometersByOrigenAyuda(Mockito.anyDouble(), Mockito.anyDouble(),
-				Mockito.anyDouble(), Mockito.any(), Mockito.any())).thenReturn(cercanos);
+				Mockito.anyDouble(), Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(cercanos);
 		when(bitacoraRepository.saveAndFlush(Mockito.any())).thenReturn(bitacora);
 		when(ayudaRepository.saveAndFlush(Mockito.any())).thenReturn(ayuda);
 		reminderService.generateReminders(ayuda);
@@ -94,7 +94,7 @@ public class ReminderServiceTest {
 		cercanos.add(new Ayuda());
 		when(bitacoraRepository.findByAyuda(Mockito.any())).thenReturn(this.bitacora);
 		when(ayudaRepository.findByAllInsideOfKilometersByOrigenAyuda(Mockito.anyDouble(), Mockito.anyDouble(),
-				Mockito.anyDouble(), Mockito.any(), Mockito.any())).thenReturn(cercanos);
+				Mockito.anyDouble(), Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(cercanos);
 		when(bitacoraRepository.saveAndFlush(Mockito.any())).thenReturn(bitacora);
 		when(ayudaRepository.saveAndFlush(Mockito.any())).thenReturn(ayuda);
 		reminderService.generateReminders(ayuda);
@@ -108,13 +108,13 @@ public class ReminderServiceTest {
 		cercanos.add(new Ayuda());
 		when(bitacoraRepository.findByAyuda(Mockito.any())).thenReturn(null);
 		when(ayudaRepository.findByAllInsideOfKilometersByOrigenAyuda(Mockito.anyDouble(), Mockito.anyDouble(),
-				Mockito.anyDouble(), Mockito.any(), Mockito.any())).thenReturn(cercanos);
+				Mockito.anyDouble(), Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(cercanos);
 		when(bitacoraRepository.saveAndFlush(Mockito.any())).thenReturn(bitacora);
 		when(ayudaRepository.saveAndFlush(Mockito.any())).thenReturn(ayuda);
 		reminderService.generateReminders(ayuda);
 		Mockito.verify(bitacoraRepository).findByAyuda(Mockito.any());
 		Mockito.verify(ayudaRepository).findByAllInsideOfKilometersByOrigenAyuda(Mockito.anyDouble(), Mockito.anyDouble(),
-				Mockito.anyDouble(), Mockito.any(), Mockito.any());
+				Mockito.anyDouble(), Mockito.any(), Mockito.any(), Mockito.any());
 		Mockito.verify(bitacoraRepository).saveAndFlush(Mockito.any());
 		Mockito.verify(ayudaRepository).saveAndFlush(Mockito.any());
 	}

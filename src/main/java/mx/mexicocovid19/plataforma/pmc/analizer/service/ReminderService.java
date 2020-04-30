@@ -49,7 +49,8 @@ public class ReminderService {
 					: OrigenAyuda.OFRECE;
 
 			List<Ayuda> cercanos = ayudaRepository.findByAllInsideOfKilometersByOrigenAyuda(
-					ayuda.getUbicacion().getLatitude(), ayuda.getUbicacion().getLongitude(), this.kilometros, origenContrario, ayuda.getCiudadano());
+					ayuda.getUbicacion().getLatitude(), ayuda.getUbicacion().getLongitude(), this.kilometros, origenContrario,
+					ayuda.getTipoAyuda(), ayuda.getCiudadano());
 			
 			logger.info("*************** Ayudas cercanas: {}, {}", cercanos.size(), ArrayUtils.toString(cercanos));
 			

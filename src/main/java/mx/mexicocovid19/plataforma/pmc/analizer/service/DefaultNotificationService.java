@@ -3,14 +3,20 @@ package mx.mexicocovid19.plataforma.pmc.analizer.service;
 import mx.mexicocovid19.plataforma.pmc.analizer.model.entity.*;
 import mx.mexicocovid19.plataforma.pmc.analizer.model.repositories.AyudaRepository;
 import mx.mexicocovid19.plataforma.pmc.analizer.model.repositories.CiudadanoRepository;
+import mx.mexicocovid19.plataforma.pmc.analizer.model.repositories.PeticionRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class DefaultNotificationService implements NotificationService {
+
+    private static final Logger logger = LogManager.getLogger(DefaultNotificationService.class);
 
     @Autowired
     private TextMessageService textMessageService;
@@ -18,6 +24,8 @@ public class DefaultNotificationService implements NotificationService {
     private AyudaRepository ayudaRepository;
     @Autowired
     private CiudadanoRepository ciudadanoRepository;
+    @Autowired
+    private PeticionRepository peticionRepository;
 
     @Value("${plataforma.whatsapp.notificarSolicita}")
     private Boolean notificarSolicita;
@@ -31,7 +39,7 @@ public class DefaultNotificationService implements NotificationService {
         Ciudadano solicita = ayuda.getOrigenAyuda() == OrigenAyuda.OFRECE ? ciudadano : ayuda.getCiudadano();
         String numeroOfrece = getNumero(ofrece);
         String numeroSolicita = getNumero(solicita);
-
+        savePeticion(ayuda, TipoMatch.MANUAL, ciudadano, null);
         if (numeroOfrece != null && !numeroOfrece.isEmpty()){
             textMessageService.sendWhatsAppMessage(message, numeroOfrece);
         }
@@ -48,6 +56,7 @@ public class DefaultNotificationService implements NotificationService {
                 String mensaje = getMessage(ayuda, cercano);
                 textMessageService.sendWhatsAppMessage(mensaje, numero);
             }
+            savePeticion(ayuda, TipoMatch.AUTOMATIC, null, cercano);
             if (notificarSolicita){
                 numero = getNumero(cercano.getCiudadano());
                 if (numero != null) {
@@ -55,6 +64,20 @@ public class DefaultNotificationService implements NotificationService {
                     textMessageService.sendWhatsAppMessage(mensaje, numero);
                 }
             }
+        }
+    }
+
+    private void savePeticion(final Ayuda ayuda, TipoMatch tipoMatch, final Ciudadano ciudadano, final Ayuda ayudaMatch){
+        try{
+            Peticion peticion = new Peticion();
+            peticion.setAyuda(ayuda);
+            peticion.setTipoMatch(tipoMatch);
+            peticion.setCiudadano(ciudadano);
+            peticion.setAyudaMatch(ayudaMatch);
+            peticion.setFechaPeticion(LocalDateTime.now());
+            peticionRepository.save(peticion);
+        } catch (Exception ex) {
+            logger.error("Fail to try save the peticion: " + ex.getMessage());
         }
     }
 
@@ -75,12 +98,8 @@ public class DefaultNotificationService implements NotificationService {
         Ciudadano cOfrece = ofrece.getCiudadano();
         Ciudadano cSolicita = solicita.getCiudadano();
 
-        String ccOfrece = cOfrece.getContactos().stream()
-                .map(contacto -> contacto.getTipoContacto() + " : " + contacto.getContacto() + " ")
-                .reduce("", (partialString, element) -> partialString + element);
-        String ccSolicita = cSolicita.getContactos().stream()
-                .map(contacto -> contacto.getTipoContacto() + " : " + contacto.getContacto() + " ")
-                .reduce("", (partialString, element) -> partialString + element);
+        String ccOfrece = cOfrece.getInfoContacto();
+        String ccSolicita = cSolicita.getInfoContacto();
         switch (ayuda.getOrigenAyuda()){
             case OFRECE:
                 return String.format("Hola [%s] encontramos que tu ayuda [%s] puede ser muy util para [%s] quien solicita [%s] puedes contactarlo en [%s]",
@@ -98,12 +117,8 @@ public class DefaultNotificationService implements NotificationService {
         Ciudadano ofrece = ayuda.getOrigenAyuda() == OrigenAyuda.OFRECE ? ayuda.getCiudadano() : ciudadano;
         Ciudadano solicita = ayuda.getOrigenAyuda() == OrigenAyuda.OFRECE ? ciudadano : ayuda.getCiudadano();
 
-        String contactoOfrece = ofrece.getContactos().stream()
-                .map(contacto -> contacto.getTipoContacto() + " : " + contacto.getContacto() + " ")
-                .reduce("", (partialString, element) -> partialString + element);
-        String contactoSolicita = solicita.getContactos().stream()
-                .map(contacto -> contacto.getTipoContacto() + " : " + contacto.getContacto() + " ")
-                .reduce("", (partialString, element) -> partialString + element);
+        String contactoOfrece = ofrece.getInfoContacto();
+        String contactoSolicita = solicita.getInfoContacto();
         String descripcion = truncateDescription(ayuda.getDescripcion());
         String ofreceName = ofrece.getNombreCompleto();
         String solicitaName = solicita.getNombreCompleto();

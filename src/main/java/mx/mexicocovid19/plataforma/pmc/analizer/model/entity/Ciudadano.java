@@ -33,4 +33,10 @@ public class Ciudadano {
     public String getNombreCompleto() {
         return this.nombre + " " + this.paterno + " " + this.materno;
     }
+
+    public String getInfoContacto() {
+        return getContactos().stream()
+                .map(contacto -> contacto.getTipoContacto() + " : " + contacto.getContacto() + " ")
+                .reduce("", (partialString, element) -> partialString + element);
+    }
 }

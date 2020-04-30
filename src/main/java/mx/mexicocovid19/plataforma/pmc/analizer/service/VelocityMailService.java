@@ -46,6 +46,9 @@ public class VelocityMailService implements MailService{
 	public void sendNotification(Ayuda ayuda, List<Ayuda> cercanos) {
 		
 		logger.info("***************Sending message for Ayuda: {}", ayuda);
+		if (ayuda.getCiudadano().getUser() == null){
+			return;
+		}
 
 		TipoEmailEnum tipoEmail = OrigenAyuda.OFRECE == ayuda.getOrigenAyuda() ? TipoEmailEnum.OFRECE_AYUDA_REMINDER
 				: TipoEmailEnum.SOLICITA_AYUDA_REMINDER;

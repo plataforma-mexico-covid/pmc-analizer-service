@@ -21,7 +21,7 @@ public class AyudaTestUtil {
 		ubicacion.setLatitude(99.1);
 		ubicacion.setLongitude(104.2);
 		ayudaAux.setUbicacion(ubicacion);
-		ayudaAux.setStatus(EstatusAyuda.NUEVA);
+		ayudaAux.setEstatusAyuda(EstatusAyuda.NUEVA);
 		TipoAyuda tipoAyuda = new TipoAyuda();
 		tipoAyuda.setActive(true);
 		tipoAyuda.setNombre("TEST");

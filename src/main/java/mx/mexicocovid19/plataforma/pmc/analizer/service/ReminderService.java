@@ -26,17 +26,12 @@ public class ReminderService {
 	private AyudaRepository ayudaRepository;
 	@Autowired
 	private MailService mailService;
-	@Autowired
-	private TextMessageService textMessageService;
 
-	@Value("${plataforma.whatsapp.notificarSolicita}")
-	private Boolean notificarSolicita;
 	@Value("${plataforma.whatsapp.kilometros}")
 	private double kilometros;
-	@Value("${plataforma.whatsapp.mensaje.ofrece}")
-	private String mensajeOfrece;
-	@Value("${plataforma.whatsapp.mensaje.solicita}")
-	private String mensajeSolicita;
+
+	@Autowired
+	private NotificationService notificationService;
 
 	@Transactional
 	public void generateReminders(Ayuda ayuda) {
@@ -60,7 +55,7 @@ public class ReminderService {
 			
 			if (!cercanos.isEmpty()) {
 				mailService.sendNotification(ayuda, cercanos);
-				sendNotification(ayuda, cercanos);
+				notificationService.sendNotificationCercanos(ayuda, cercanos);
 				System.out.println(ayuda.toString());
 				System.out.println(notificacion.toString());
 				bitacoraRepository.saveAndFlush(notificacion);
@@ -89,55 +84,4 @@ public class ReminderService {
 		}
 	}
 
-	private void sendNotification(final Ayuda ayuda, final List<Ayuda> cercanos) {
-		for (Ayuda cercano: cercanos) {
-			String numero = getNumero(ayuda.getCiudadano());
-			if (numero != null){
-				String mensaje = getMessage(ayuda, cercano);
-				textMessageService.sendWhatsAppMessage(mensaje, numero);
-			}
-			if (notificarSolicita){
-				numero = getNumero(cercano.getCiudadano());
-				if (numero != null) {
-					String mensaje = getMessage(cercano, ayuda);
-					textMessageService.sendWhatsAppMessage(mensaje, numero);
-				}
-			}
-		}
-	}
-
-	private String getNumero(final Ciudadano ciudadano){
-		for (CiudadanoContacto contacto : ciudadano.getContactos()) {
-			if (TipoContacto.TELEFONO_MOVIL == contacto.getTipoContacto() ||
-					TipoContacto.WHATSAPP == contacto.getTipoContacto()) {
-				return contacto.getContacto();
-			}
-		}
-		return null;
-	}
-
-	private String getMessage(final Ayuda ayuda, Ayuda ayudaMatch){
-		Ciudadano c1 = ayuda.getCiudadano();
-		Ciudadano c2 = ayudaMatch.getCiudadano();
-		switch (ayuda.getOrigenAyuda()){
-			case SOLICITA:
-				return String.format(mensajeSolicita,
-						new String[]{c1.getNombreCompleto(), truncateDescription(ayuda.getDescripcion()),
-								c2.getNombreCompleto(), truncateDescription(ayudaMatch.getDescripcion())});
-			case OFRECE:
-				return String.format(mensajeOfrece,
-						new String[]{c1.getNombreCompleto(), truncateDescription(ayuda.getDescripcion()),
-						c2.getNombreCompleto(), truncateDescription(ayudaMatch.getDescripcion())});
-		}
-		return null;
-	}
-
-	private String truncateDescription(final String description){
-		if (description == null)
-			return "";
-		if(description.length() > 200){
-			return description.substring(0, 196) + "...";
-		}
-		return description;
-	}
 }

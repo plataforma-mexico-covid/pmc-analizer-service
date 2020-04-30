@@ -26,9 +26,6 @@ plataforma.whatsapp:
   token: ${WHATSAPP_TOKEN}
   notificarSolicita: ${WHATSAPP_NOTIFICA_SOLICITA}
   kilometros: ${WHATSAPP_KILOMETROS}
-  mensaje:
-    ofrece: ${WHATSAPP_MENSAJE_OFRECE}
-    solicita: ${WHATSAPP_MENSAJE_SOLICITA}
 
 ---
 
@@ -50,10 +47,7 @@ spring:
 
 plataforma.whatsapp:
   notificarSolicita: true
-  kilometros: 10
-  mensaje:
-    ofrece: Hola %s encontramos que tu ayuda %s puede ser muy util para %s quien solicita %s puedes contactarlo en este numero %s
-    solicita: Hola %s encontramos que tu solicitud %s puede ser atendida por %s quien ofrece %s puedes contactarlo en este numero %s
+  kilometros: 5
 
 ---
 spring:

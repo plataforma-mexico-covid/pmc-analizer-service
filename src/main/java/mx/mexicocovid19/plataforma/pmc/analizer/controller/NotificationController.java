@@ -2,7 +2,7 @@ package mx.mexicocovid19.plataforma.pmc.analizer.controller;
 
 import lombok.extern.log4j.Log4j2;
 import mx.mexicocovid19.plataforma.pmc.analizer.constants.ApiResourceConstants;
-import mx.mexicocovid19.plataforma.pmc.analizer.service.TextMessageService;
+import mx.mexicocovid19.plataforma.pmc.analizer.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,18 +17,17 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = ApiResourceConstants.API_PATH_PUBLIC)
 @Validated
-public class PublishMessageController {
+public class NotificationController {
     @Autowired
-    TextMessageService textMessageService;
+    NotificationService notificationService;
 
-    @PostMapping(value="/publish/message", produces= MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value="/notification/match", produces= MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
-    public void singleReminder(
-            @RequestBody Map<String, String> request) {
+    public void singleReminder(@RequestBody Map<String, Integer> request) {
         log.info("***************Reciving request for PMC Analizer Send message.***************");
         log.info("***************Request: {}", request);
-        textMessageService.sendWhatsAppMessage(request.get("mensaje"), request.get("numbero"));
+        notificationService.sendNotificationMatch(request.get("ayudaId"), request.get("ciudadanoId"));
         log.info("***************Send message finalized on: {}", LocalDateTime.now());
     }
 }

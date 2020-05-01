@@ -1603,7 +1603,7 @@
 	                                            <table>
 													#foreach( $ayuda in $cercanosList )
 													    <tr>
-													   	 	<td><strong style="color:#2c3176;">$ayuda.descripcion</strong>  |   $ayuda.ubicacion.colonia / $ayuda.ubicacion.municipality.nombreOficial</td>
+													   	 	<td><strong style="color:#2c3176;">$ayuda.descripcion</strong>  |   $ayuda.ciudadano.nombreCompleto  |   $ayuda.ciudadano.infoContacto</td>
 													    </tr>
 													#end
 												</table>

@@ -31,7 +31,7 @@ public class Ciudadano {
     private Set<CiudadanoContacto> contactos = new HashSet<CiudadanoContacto>(0);
 
     public String getNombreCompleto() {
-        return this.nombre + " " + this.paterno + " " + this.materno;
+        return this.nombre + (this.paterno != null ? " " + this.paterno : "") + (this.materno != null ? " " + this.materno : "");
     }
 
     public String getInfoContacto() {

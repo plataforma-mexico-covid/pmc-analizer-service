@@ -7,4 +7,6 @@ import java.util.List;
 public interface NotificationService {
     void sendNotificationMatch(final Integer ayudaId, final Integer ciudadanoId);
     void sendNotificationCercanos(final Ayuda ayuda, final List<Ayuda> cercanos);
+
+    void sendNotificationMessage(final String numero, final String message);
 }

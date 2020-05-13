@@ -25,9 +25,19 @@ public class NotificationController {
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
     public void singleReminder(@RequestBody Map<String, Integer> request) {
-        log.info("***************Reciving request for PMC Analizer Send message.***************");
+        log.info("***************Reciving request for PMC Analizer Match ayuda.***************");
         log.info("***************Request: {}", request);
         notificationService.sendNotificationMatch(request.get("ayudaId"), request.get("ciudadanoId"));
+        log.info("***************Match ayuda finalized on: {}", LocalDateTime.now());
+    }
+
+    @PostMapping(value="/notification/send", produces= MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CREATED)
+    public void sendMessage(@RequestBody Map<String, String> request) {
+        log.info("***************Reciving request for PMC Analizer send message.***************");
+        log.info("***************Request: {}", request);
+        notificationService.sendNotificationMessage(request.get("numero"), request.get("message"));
         log.info("***************Send message finalized on: {}", LocalDateTime.now());
     }
 }

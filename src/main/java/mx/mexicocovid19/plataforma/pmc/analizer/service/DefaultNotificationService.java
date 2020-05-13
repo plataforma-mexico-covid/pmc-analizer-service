@@ -67,6 +67,11 @@ public class DefaultNotificationService implements NotificationService {
         }
     }
 
+    @Override
+    public void sendNotificationMessage(String numero, String message) {
+        textMessageService.sendWhatsAppMessage(message, numero);
+    }
+
     private void savePeticion(final Ayuda ayuda, TipoMatch tipoMatch, final Ciudadano ciudadano, final Ayuda ayudaMatch){
         try{
             Peticion peticion = new Peticion();
